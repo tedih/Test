@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="action_report_invoice" model="ir.actions.report">
+            <field name="name">Product Routes Report</field>
+            <field name="model">commprog.rresht.fature</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">commprog.report_invoice</field>
+            <field name="report_file">commprog.report_invoice</field>
+        </record>
+
+        <template id="report_invoice">
+        <t t-set="data_report_landscape" t-value="True"/>
+        <t t-set="full_width" t-value="True"/>
+        <t t-call="web.html_container">
+                <h3 t-esc="n"></h3>
+            <div>
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Produkt</th>
+                            <th>Sasi</th>
+                            <th>cmim</th>
+                            <th>total</th>
+                        </tr>
+                        <col2>
+
+                        </col2>
+                    </thead>
+                    <tbody>
+                        <t t-set="grand_total" t-value="0"/>
+                        <t t-foreach="docs" t-as="o">
+                            <tr>
+                                <td>
+                                    <span t-esc="o['produkt']"></span>
+                                </td>
+                                <td>
+                                    <span t-esc="o['sasi']"></span>
+                                </td>
+                                <td>
+                                    <span t-esc="o['cmimi']"></span>
+                                </td>
+                                <td>
+                                    <span t-esc="o['total']"></span>
+                                </td>
+                                <t t-set="grand_total" t-value="grand_total+o['total']"/>
+                            </tr>
+                        </t>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>
+                                <span t-esc="grand_total"></span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    </data>
+</odoo>
